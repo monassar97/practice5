@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    stream:
+      binder:
+        auto-add-partition: true
+        default-binder: kafka
+      binding: 
+        cart-queue: 
+          destination: cart-queue
+          group: item-managment
+        cart-events: 
+          destination: cart-events
