@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.training.ShoppingCart.model.Product;
 import com.training.ShoppingCart.model.ShopCart;
+import com.training.ShoppingCart.model.Status;
 import com.training.ShoppingCart.repository.entity.ProductEntity;
 import com.training.ShoppingCart.repository.entity.ShopCartEntity;
 import com.training.ShoppingCart.service.EventCart;
@@ -27,4 +28,6 @@ public interface ShopCartDAO {
 	public void checkOut(String id);
 
 	public EventCart buy(String id);
+
+	public String getStatus(String  cartId);
 }

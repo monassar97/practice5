@@ -15,6 +15,7 @@ import com.training.ShoppingCart.adapter.rest.ProductDTO;
 import com.training.ShoppingCart.adapter.rest.ShopCartDTO;
 import com.training.ShoppingCart.model.Product;
 import com.training.ShoppingCart.model.ShopCart;
+import com.training.ShoppingCart.model.Status;
 import com.training.ShoppingCart.repository.CartRepoImplementation;
 import com.training.ShoppingCart.repository.entity.ShopCartEntity;
 
@@ -69,6 +70,10 @@ public class CartService {
 
 	public void addStatus(ResponseEvent reply) {
 		repo.purchase(reply.getCartId(), reply.getReply());
+	}
+
+	public String cartSatus(String cartId) {
+		return repo.getStatus(cartId);
 	}
 
 	public Product toProduct(ProductDTO dto) {

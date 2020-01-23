@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.training.ShoppingCart.model.Product;
 import com.training.ShoppingCart.model.ShopCart;
+import com.training.ShoppingCart.model.Status;
 import com.training.ShoppingCart.service.CartService;
 
 @RestController
@@ -64,6 +65,11 @@ public class CartController {
 	@GetMapping("/buy/{id}")
 	public void buy(@PathVariable("id") String id) {
 		service.buy(id);
+	}
+
+	@GetMapping("/status/{cartId}")
+	public String cartStatus(@PathVariable("cartId") String id) {
+		return service.cartSatus(id);
 	}
 
 	public ShopCartDTO toCartDto(ShopCart cart) {

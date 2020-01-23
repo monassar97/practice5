@@ -40,7 +40,7 @@ public class CartRepoImplementation implements ShopCartDAO {
 		products.add(toProductEntity(product));
 		cart.setAmount(calculateAmount(products));
 		cart.setProducts(products);
-		cart.setStatus(Status.SAVED);
+		cart.setStatus(Status.SAVED.toString());
 		repo.save(cart);
 		return product;
 	}
@@ -54,7 +54,7 @@ public class CartRepoImplementation implements ShopCartDAO {
 		products.remove(product);
 		cart.setProducts(products);
 		cart.setAmount(calculateAmount(products));
-		cart.setStatus(Status.SAVED);
+		cart.setStatus(Status.SAVED.toString());
 		repo.save(cart);
 		return true;
 	}
@@ -67,7 +67,7 @@ public class CartRepoImplementation implements ShopCartDAO {
 		List<ProductEntity> products = cart.getProducts();
 		products.clear();
 		cart.setProducts(products);
-		cart.setStatus(Status.CLEARED);
+		cart.setStatus(Status.CLEARED.toString());
 		repo.save(cart);
 		return true;
 	}
@@ -76,25 +76,25 @@ public class CartRepoImplementation implements ShopCartDAO {
 	public void purchase(String id, String response) {
 		ShopCartEntity cart = repo.getOne(id);
 
-		cart.setStatus(Status.PENDING);
-		if (response.equals("paid"))
-			cart.setStatus(Status.PAID);
+		cart.setStatus(Status.PENDING.toString());
+		if (response.equals("succeed"))
+			cart.setStatus(Status.PAID.toString());
 		if (response.equals("failed"))
-			cart.setStatus(Status.FAILED);
+			cart.setStatus(Status.FAILED.toString());
 		repo.save(cart);
 	}
 
 	@Override
 	public double calculateAmount(List<ProductEntity> amounts) {
 		double amount = 0.0;
-		amount = amounts.stream().mapToDouble(x -> x.getPrice()).summaryStatistics().getCount();
+		amount = amounts.stream().mapToDouble(x -> x.getPrice()).summaryStatistics().getSum();
 		return amount;
 	}
 
 	@Override
 	public void checkOut(String id) {
 		ShopCartEntity cart = repo.findById(id).get();
-		cart.setStatus(Status.CHECKOUT);
+		cart.setStatus(Status.CHECKOUT.toString());
 		repo.save(cart);
 	}
 
@@ -113,6 +113,8 @@ public class CartRepoImplementation implements ShopCartDAO {
 	@Override
 	public ShopCart createCart(ShopCart cart) {
 		System.out.println(cart.toString());
+		cart.setAmount(
+				calculateAmount(cart.getProducts().stream().map(this::toProductEntity).collect(Collectors.toList())));
 		repo.save(toCartEntity(cart));
 		return cart;
 	}
@@ -127,6 +129,11 @@ public class CartRepoImplementation implements ShopCartDAO {
 		EventCart eCart = EventCart.builder().amount(cart.getAmount()).cartId(cart.getId()).userId(cart.getUserID())
 				.build();
 		return eCart;
+	}
+
+	@Override
+	public String getStatus(String cartId) {
+		return repo.getOne(cartId).getStatus().toString();
 	}
 
 }

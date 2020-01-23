@@ -1,0 +1,11 @@
+spring:
+  cloud:
+    stream:
+      kafka: 
+        binder:
+          auto-add-partitions: true
+      bindings:
+        card-queue: 
+          destination: carts
+        card-events:
+          destination: carts2

@@ -1,12 +1,11 @@
 spring:
   cloud:
     stream:
-      binder:
-        auto-add-partition: true
-        default-binder: kafka
-      binding: 
-        cart-queue: 
-          destination: cart-queue
-          group: item-managment
-        cart-events: 
-          destination: cart-events
+      kafka:
+        binder:
+          auto-add-partitions: true
+      bindings:
+        cart-queue:
+          destination: carts2
+        cart-events:
+          destination: carts
