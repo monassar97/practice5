@@ -9,6 +9,6 @@ spring:
           destination: card-queue
           group: group2
         card-events:
-          destination: card-events
+          destination: cart-queue
           producer:
             partition-count: 2
