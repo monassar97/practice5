@@ -34,6 +34,7 @@ public class CartService {
 	}
 
 	public ShopCart createCart(ShopCartDTO cart) {
+		System.out.println(cart.toString());
 		return repo.createCart(toCart(cart));
 	}
 
@@ -43,7 +44,6 @@ public class CartService {
 
 	public boolean userServiceMessageSender(EventCart cart) {
 		Message<EventCart> message = MessageBuilder.withPayload(cart).build();
-
 		return outputChannel.outChannel().send(message);
 	}
 

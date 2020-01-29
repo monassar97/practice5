@@ -24,6 +24,7 @@ public class ShopCartEntity {
 	private String Status;
 	private double amount;
 	private String date;
+	private String userID;
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	// @JoinColumn(name = "id")
 	private List<ProductEntity> products;

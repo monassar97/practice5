@@ -6,6 +6,9 @@ spring:
           auto-add-partitions: true
       bindings:
         cart-queue:
-          destination: carts2
-        cart-events:
-          destination: carts
+          destination: card-events
+          group: group1
+        cart-events: 
+          destination: card-queue
+          producer:
+            partition-count: 2

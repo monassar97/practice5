@@ -4,11 +4,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.Value;
 
-@Data
 @Builder
 @Value
 public class EventCart {
-	private String userId;
+	private String userID;
 	private double amount;
 	private String cartId;
 }

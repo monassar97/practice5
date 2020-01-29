@@ -2,7 +2,6 @@ package com.training.payment.adapter.repository.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
